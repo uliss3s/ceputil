@@ -34,6 +34,12 @@
 
 # IntelliJ
 /out/
+target/classes/
+target/maven-archiver/
+target/maven-status/
+target/surefire-reports/
+target/test-classes/
+
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

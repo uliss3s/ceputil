@@ -8,7 +8,7 @@ Projeto desenvolvido utilizando o Java SDK 8 (Nivel de linguagem 1.6), com a IDE
 
 # Consumo do WS do viacep.com.br usando apenas classes nativas java (SDK 8)
 
-```
+``` java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

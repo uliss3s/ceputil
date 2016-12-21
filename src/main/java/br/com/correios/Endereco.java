@@ -7,6 +7,7 @@ public class Endereco {
 
     private String cep;
     private String uf;
+    private String bairro;
     private String cidade;
     private String logradouro;
     private String complemento;
@@ -18,6 +19,10 @@ public class Endereco {
 
     public String getUf() {
         return uf;
+    }
+
+    public String getBairro() {
+        return bairro;
     }
 
     public String getCidade() {
@@ -72,6 +77,7 @@ public class Endereco {
                 "cep='" + cep + '\'' +
                 ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
+                ", bairro='" + bairro + '\'' +
                 ", logradouro='" + logradouro + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", complemento2='" + complemento2 + '\'' +

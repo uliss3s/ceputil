@@ -24,6 +24,7 @@ public class ClienteWs {
     private static final Set<String> CAMPOS = new HashSet<String>(Arrays.asList(
             "cep",
             "uf",
+            "bairro",
             "cidade",
             "end",
             "complemento",
@@ -46,6 +47,7 @@ public class ClienteWs {
             endereco = new Endereco()
                     .setCep(mapa.get("cep"))
                     .setUf(mapa.get("uf"))
+                    .setBairro(mapa.get("bairro"))
                     .setCidade(mapa.get("cidade"))
                     .setLogradouro(mapa.get("end"))
                     .setComplemento(mapa.get("complemento"))

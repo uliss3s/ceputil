@@ -106,6 +106,7 @@ public class ClienteWs {
             httpPost.setEntity(s);
             HttpResponse response = httpclient.execute(httpPost);
             HttpEntity entity = response.getEntity();
+
             if (entity != null) {
                 InputStream inputStream = entity.getContent();
 
@@ -117,6 +118,8 @@ public class ClienteWs {
                 SOAPMessage soapMessage = MessageFactory.newInstance().createMessage(null, bais);
 
                 document = soapMessage.getSOAPBody().extractContentAsDocument();
+
+                inputStream.close();
             }
 
             httpclient.getConnectionManager().shutdown();
@@ -140,4 +143,3 @@ public class ClienteWs {
         return mapa;
     }
 }
-

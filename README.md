@@ -4,7 +4,7 @@ Este pequeno projeto utiliza os webservices do correio SIGEP WEB (http://www.cor
 
 # Info
 
-Projeto desenvolvido utilizando o Java SDK 8 (Nivel de linguagem 1.6), com a IDE Intellij IDEA 2016.1.
+Projeto desenvolvido utilizando o Java SDK 8 (Nivel de linguagem 1.8), com a IDE Intellij IDEA 2017.3.5
 
 # Consumo do WS do viacep.com.br usando apenas classes nativas java (SDK 8)
 

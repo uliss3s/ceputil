@@ -1,6 +1,8 @@
 # ceputil
 
-Este pequeno projeto utiliza os webservices do correio SIGEP WEB (http://www.correios.com.br), viacep (https://viacep.com.br) e postmon (http://postmon.com.br), para disponibilizar informações de endereço.
+Este pequeno projeto utiliza os webservices do correio SIGEP WEB (http://www.correios.com.br), viacep (https://viacep.com.br) e ~~postmon (http://postmon.com.br)~~, para disponibilizar informações de endereço.
+
+**Atenção: O serviço do endereço http://postmon.com.br foi modificado e não está funcionando**
 
 # Info
 

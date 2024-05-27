@@ -1,12 +1,12 @@
 # ceputil
 
-Este pequeno projeto utiliza os webservices do correio SIGEP WEB (http://www.correios.com.br), viacep (https://viacep.com.br) e ~~postmon (http://postmon.com.br)~~, para disponibilizar informações de endereço.
+Este pequeno projeto utiliza os webservices do ~~correio SIGEP WEB (http://www.correios.com.br)~~, viacep (https://viacep.com.br) e postmon (http://postmon.com.br), para disponibilizar informações de endereço.
 
-**Atenção: O serviço do endereço http://postmon.com.br foi modificado e não está funcionando**
+**Atenção: O serviço dos correios foi modificado e não está funcionando**
 
 # Info
 
-Projeto desenvolvido utilizando o Java SDK 8 (Nivel de linguagem 1.8), com a IDE Intellij IDEA 2017.3.5
+Projeto desenvolvido utilizando o Java SDK 8 (Nivel de linguagem 1.8)
 
 # Consumo do WS do viacep.com.br usando apenas classes nativas java (SDK 8)
 

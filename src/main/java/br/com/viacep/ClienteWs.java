@@ -1,32 +1,26 @@
 package br.com.viacep;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.github.uliss3s.ceputil.ClientException;
 import com.github.uliss3s.ceputil.Util;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.JsonValue;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classe para recuperar informações do WS do viacep.com.br
  */
 public class ClienteWs {
-
-    private static final Set<String> CAMPOS = new HashSet<String>(Arrays.asList(
-    "cep",
-    "logradouro",
-    "complemento",
-    "bairro",
-    "localidade",
-    "uf",
-    "unidade",
-    "ibge",
-    "gia"
-    ));
+    
+    private ClienteWs() {}
 
     /**
      * Recupera objeto Endereco pelo CEP
@@ -49,10 +43,10 @@ public class ClienteWs {
                     .setBairro(jsonObject.getString("bairro"))
                     .setLocalidade(jsonObject.getString("localidade"))
                     .setUf(jsonObject.getString("uf"))
-                    .setUnidade(jsonObject.getString("unidade"))
                     .setIbge(jsonObject.getString("ibge"))
-                    .setGia(jsonObject.getString("gia"));
-
+                    .setGia(jsonObject.getString("gia"))
+                    .setDdd(jsonObject.getString("ddd"))
+                    .setSiafi(jsonObject.getString("siafi"));
         }
 
         return endereco;
@@ -71,39 +65,46 @@ public class ClienteWs {
 
         Map<String, String> mapa = null;
         if (erro == null) {
-            mapa = new HashMap<String, String>();
-
-            for (Iterator<Map.Entry<String,JsonValue>> it = jsonObject.entrySet().iterator(); it.hasNext();) {
-                Map.Entry<String,JsonValue> entry = it.next();
+            mapa = new HashMap<>();
+            
+            for (Map.Entry<String, JsonValue> entry : jsonObject.entrySet()) {
                 mapa.put(entry.getKey(), entry.getValue().toString());
             }
         }
 
         return mapa;
     }
-
+    
+    //TODO criar um client único para os serviços
     private static JsonObject getCepResponse(String cep) {
-
-        JsonObject responseJO = null;
+        JsonObject responseJO;
 
         try {
             if (!Util.validaCep(cep)) {
-                throw new RuntimeException("Formato de CEP inválido");
+                throw new ClientException("Formato de CEP inválido");
             }
 
-            DefaultHttpClient httpclient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet("https://viacep.com.br/ws/"+cep+"/json");
-            HttpResponse response = httpclient.execute(httpGet);
+            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                HttpGet httpGet = new HttpGet(String.format("https://viacep.com.br/ws/%s/json", cep));
+                CloseableHttpResponse response = httpClient.execute(httpGet);
+                
+                HttpEntity entity = response.getEntity();
 
-            HttpEntity entity = response.getEntity();
+                try (JsonReader reader = Json.createReader(entity.getContent())) {
+                    responseJO = reader.readObject();
+                }
 
-            responseJO = Json.createReader(entity.getContent()).readObject();
+                if (response.getStatusLine().getStatusCode() != 200) {
+                    throw new ClientException(response.getStatusLine().getReasonPhrase());
+                }
+                
+                response.close();
+            }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ClientException(e);
         }
 
         return responseJO;
     }
 }
-
